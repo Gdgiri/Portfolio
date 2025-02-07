@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center px-6 md:px-16">
         {/* Left Side - Copyright */}
         <div className="text-sm text-gray-700 md:text-left mb-4 md:mb-0">
-          &copy; {new Date().getFullYear()} Creative Hill. All rights reserved.
+          &copy; {new Date().getFullYear()} GD-Coder. All rights reserved.
         </div>
 
         {/* Center - Footer Links */}
@@ -27,30 +27,7 @@ const Footer = () => {
                 About
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="/privacy-policy"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-red-600 font-bold"
-                    : "text-gray-700 hover:text-red-500 transition-colors"
-                }
-              >
-                Privacy Policy
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/licensing"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-red-600 font-bold"
-                    : "text-gray-700 hover:text-red-500 transition-colors"
-                }
-              >
-                Licensing
-              </NavLink>
-            </li>
+
             <li>
               <NavLink
                 to="/contact"
