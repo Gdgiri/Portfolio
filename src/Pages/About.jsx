@@ -128,7 +128,7 @@ const About = () => {
         {/* Skills & Tools with Mapped Images */}
         <div className="mt-16 text-center">
           <h3 className="text-4xl font-bold text-red-600 text-center mb-6 drop-shadow-lg">
-            Skills & Tools
+            Skills & Tools ({skills.length})
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
             {skills.map((skill, index) => (

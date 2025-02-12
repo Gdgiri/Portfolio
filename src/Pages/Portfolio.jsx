@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const Portfolio = () => {
+  const [filter, setFilter] = useState("All");
+
   const projects = [
     {
       id: 1,
@@ -50,10 +52,10 @@ const Portfolio = () => {
       id: 6,
       title: "Receipe-App",
       description:
-        "Users can upload their own recipes, edit or delete them anytime, and view all recipes shared by other users. The website allows seamless recipe management with full CRUD functionality. Everyone can explore and engage with a diverse collection of user-uploaded recipes.",
+        "Users can upload their own recipes, edit or delete them anytime, and view all recipes shared by other users.",
       imageUrl:
         "https://static.vecteezy.com/system/resources/thumbnails/000/108/904/small/free-recipe-vectors.jpg",
-      projectLink: null, // Work in progress
+      projectLink: null,
     },
     {
       id: 7,
@@ -61,17 +63,60 @@ const Portfolio = () => {
       description: "A platform to book appointments with doctors.",
       imageUrl:
         "https://img.freepik.com/premium-vector/online-doctor-concept-doctor-appointment-modern-healthcare-technologies-vector-illustration-flat_186332-1220.jpg",
-      projectLink: null, // Work in progress
+      projectLink: null,
     },
   ];
+
+  // Fetch the filtered projects based on the filter state
+  const filteredProjects = projects.filter((project) => {
+    if (filter === "Completed") return project.projectLink;
+    if (filter === "Pending") return !project.projectLink;
+    return true;
+  });
+
+  // Save the completed project count in localStorage
+  useEffect(() => {
+    const completedProjectsCount = projects.filter(
+      (project) => project.projectLink
+    ).length;
+    localStorage.setItem("projectCount", completedProjectsCount);
+  }, [projects]);
+
+  // Retrieve the completed project count from localStorage
+  const projectCount = localStorage.getItem("projectCount") || 0;
 
   return (
     <div className="py-10 px-5">
       <h2 className="text-4xl font-bold text-red-600 text-center mb-8 drop-shadow-lg">
         My Projects
       </h2>
+
+      {/* Display the project count */}
+      <div className="text-center mb-6">
+        <p className="text-lg text-gray-700">
+          Total Completed Projects:{" "}
+          <span className="text-red-600 font-bold">{projectCount}</span>
+        </p>
+      </div>
+
+      <div className="flex justify-center gap-4 mb-6">
+        {["All", "Completed", "Pending"].map((category) => (
+          <button
+            key={category}
+            onClick={() => setFilter(category)}
+            className={`px-4 py-2 rounded-lg text-white transition-all duration-300 ${
+              filter === category
+                ? "bg-red-600"
+                : "bg-gray-600 hover:bg-gray-700"
+            }`}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {projects.map((project) => (
+        {filteredProjects.map((project) => (
           <div
             key={project.id}
             className="overflow-hidden rounded-lg shadow-xl transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl bg-white"
